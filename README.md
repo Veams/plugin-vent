@@ -4,6 +4,8 @@ The VeamsVent plugin is a global publish and subscribe object. You can use this 
 
 Veams exposes a global event object (`Veams.EVENTS`) which can be used and extended by this plugin.
 
+The module extends the default `EVENTS` object of Veams when you pass the option called `furtherEvents`.
+
 ### How to
 
 ```js
@@ -24,4 +26,3 @@ Veams.use(VeamsVent, {
 
 - _furtherEvents_ {`Object`} [`false`] - Add your custom events to the global events object of Veams.
 
-###
