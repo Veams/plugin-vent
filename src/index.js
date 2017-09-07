@@ -111,12 +111,6 @@ const VeamsVent = {
 	},
 	pluginName: 'Vent',
 	initialize: function (Veams, opts) {
-
-		if (!Veams.$) {
-			console.error('VeamsVent :: You need to add a DOM handler plugin if you want to use Veams.Vent!');
-			return;
-		}
-
 		if (opts) {
 			this.options = Veams.helpers.extend(this.options, opts || {});
 		}

@@ -1,6 +1,6 @@
 {
 	"name": "veams-plugin-vent",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "The VeamsVent plugin is a global publish and subscribe object. You can use this plugin to communicate between modules independently.",
 	"main": "lib/index.js",
 	"browserify": {
