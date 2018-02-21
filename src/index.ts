@@ -17,7 +17,7 @@ export interface IVentOptions {
 	furtherEvents?: IEvents
 }
 
-export interface VeamsExtendedByVent {
+export interface IVeamsExtendedByVent {
 	Vent: any,
 	EVENTS: IEvents
 }
@@ -44,7 +44,7 @@ const VentPlugin: IVentPlugin = {
 		furtherEvents: {}
 	},
 	pluginName: 'Vent',
-	initialize: function (Veams, opts: IVentOptions): VeamsExtendedByVent {
+	initialize: function (Veams, opts: IVentOptions): IVeamsExtendedByVent {
 		if (opts) {
 			this.options = extend(this.options, opts || {});
 		}
