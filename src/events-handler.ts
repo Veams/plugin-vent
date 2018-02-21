@@ -1,17 +1,3 @@
-'use strict';
-
-/**
- * Represents a Vent plugin which creates an empty object.
- * The object will be used as publish/subscribe plugin.
- *
- * The module extends the default EVENTS object of Veams
- * when you pass the option called 'furtherEvents'.
- *
- * @module VeamsVent
- *
- * @author Sebastian Fitzner
- */
-
 /**
  * @module EventsHandler
  *
@@ -23,25 +9,26 @@
  * modified by Sebastian Fitzner
  *
  */
-const EventsHandler = (function () {
+export default (function () {
 	let cache = {},
 		/**
 		 *    Events.publish
-		 *    e.g.: Events.publish("/Article/added", {article: article}, this);
+		 *    e.g.:
+		 *      Events.publish("/Article/added", {article: article}, this);
 		 *
 		 *    @class Events
 		 *    @method publish
 		 *    @param topic {String}
-		 *    @param args    {Object}
+		 *    @param obj {Object}
 		 *    @param scope {Object} Optional
 		 */
-		publish = function (topic, args, scope) {
+		publish = function (topic: string, obj: object = {}, scope = this) {
 			if (cache[topic]) {
 				let thisTopic = cache[topic];
 				let i = thisTopic.length - 1;
 
 				for (i; i >= 0; i -= 1) {
-					thisTopic[i].call(scope || this, args || {});
+					thisTopic[i].call(scope, obj);
 				}
 			}
 		},
@@ -53,9 +40,8 @@ const EventsHandler = (function () {
 		 *    @method subscribe
 		 *    @param topic {String}
 		 *    @param callback {Function}
-		 *    @return Event handler {Array}
 		 */
-		subscribe = function (topic, callback) {
+		subscribe = function (topic: string, callback: any) {
 			let topics = topic.split(' ');
 
 			for (let i = 0; i < topics.length; i++) {
@@ -71,8 +57,9 @@ const EventsHandler = (function () {
 
 		/**
 		 *    Events.unsubscribe
-		 *    e.g.: var handle = Events.subscribe("/Article/added", Articles.validate);
-		 *        Events.unsubscribe("/Article/added", Articles.validate);
+		 *    e.g.:
+		 *      var handle = Events.subscribe("/Article/added", Articles.validate);
+		 *      Events.unsubscribe("/Article/added", Articles.validate);
 		 *
 		 *    @class Events
 		 *    @method unsubscribe
@@ -80,7 +67,7 @@ const EventsHandler = (function () {
 		 *    @param handle {Function}
 		 *    @param completly {Boolean}
 		 */
-		unsubscribe = function (topic, handle, completly = false) {
+		unsubscribe = function (topic: string, handle: any, completly = false) {
 			let i = cache[topic].length - 1;
 
 			if (cache[topic]) {
@@ -104,20 +91,3 @@ const EventsHandler = (function () {
 		off: unsubscribe
 	};
 }());
-
-const VeamsVent = {
-	options: {
-		furtherEvents: {}
-	},
-	pluginName: 'Vent',
-	initialize: function (Veams, opts) {
-		if (opts) {
-			this.options = Veams.helpers.extend(this.options, opts || {});
-		}
-
-		Veams.Vent = EventsHandler;
-		Veams.EVENTS = Veams.helpers.extend(Veams.EVENTS, this.options.furtherEvents);
-	}
-};
-
-export default VeamsVent;
