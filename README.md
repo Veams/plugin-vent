@@ -1,3 +1,8 @@
+[//]: # ({{#wrapWith "content-section"}})
+
+[//]: #     ({{#wrapWith "grid-row"}})
+[//]: #         ({{#wrapWith "grid-col" colClasses="is-col-mobile-l-8"}})
+
 # Veams Vent Plugin (`@veams/plugin-vent`)
 
 The Veams Vent Plugin is a global publish and subscribe object. You can use this plugin to communicate between modules independently.
@@ -7,6 +12,8 @@ Veams exposes a global event object (`Veams.EVENTS`) which can be used and exten
 The module extends the default `EVENTS` object of Veams when you pass the option called `furtherEvents`.
 
 TypeScript is supported. 
+
+---------------------
 
 ## Installation
 
@@ -22,9 +29,11 @@ npm install @veams/plugin-vent --save
 yarn add @veams/plugin-vent
 ```
 
+---------------------
+
 ## Usage
 
-```js
+``` js
 import Veams from '@veams/core';
 import VentPlugin from '@veams/plugin-vent';
 import EVENTS from './custom-events';
@@ -40,7 +49,9 @@ Veams.onInitialize(() => {
 
 ### Options
 
-- _furtherEvents_ {`Object`} [`false`] - Add your custom events to the global events object of Veams.
+| Option | Type | Default | Description |
+|:--- |:---:|:---:|:--- |
+| _furtherEvents_ | {`Object`} | [`false`] | Add your custom events to the global events object of Veams. |
 
 ### Api
 
@@ -68,12 +79,13 @@ _alias: `.trigger()`_
 * @param {`Object`} obj - Optional custom data object which you can pass.
 * @param {`scope`} any - Optional scope/context on which you want to execute `.call()`.
 
+---------------------
 
-### Example
+## Example
 
-#### Default events like `click`, `resize` and more
+### Default events like `click`, `resize` and more
 
-```js
+``` js
 // Let's add a throttle to the scroll event and trigger that
 window.onscroll = Veams.helpers.throttle((e) => {
     Veams.Vent.publish(Veams.EVENTS.scroll, e);
@@ -81,13 +93,13 @@ window.onscroll = Veams.helpers.throttle((e) => {
 
 // Now we can easily catch that ...
 Veams.Vent.subscribe(Veams.EVENTS.scroll, () => {
-	console.log('Throttled scrol captured ... ');
+	console.log('Throttled scroll captured ... ');
 });
 ```
 
-#### Custom events
+### Custom events
 
-```js
+``` js
 const dataHandler = (data) => {
 	// Make something with the data ...
 	console.log('my custom data received by publish(): ', data);
@@ -105,3 +117,8 @@ Veams.Vent.subscribe(Veams.EVENTS.resize, () => {
 	Veams.Vent.unsubscribe('custom:event', dataHandler);
 });
 ```
+
+[//]: #         ({{/wrapWith}})
+[//]: #     ({{/wrapWith}})
+
+[//]: # ({{/wrapWith}})
