@@ -3,29 +3,29 @@
 /**
  * Imports
  */
-import EventsHandler from './events-handler';
 import extend from '@veams/helpers/lib/object/extend';
+import createEventHandling from './events-handler';
 
 /**
  * Interfaces
  */
 export interface IEvents {
-	[name: string]: string
+  [name: string]: string;
 }
 
 export interface IVentOptions {
-	furtherEvents?: IEvents
+  furtherEvents?: IEvents;
 }
 
 export interface IVeamsExtendedByVent {
-	Vent: any,
-	EVENTS: IEvents
+  Vent: any;
+  EVENTS: IEvents;
 }
 
 export interface IVentPlugin {
-	options: IVentOptions,
-	pluginName: string,
-	initialize: any
+  options: IVentOptions;
+  pluginName: string;
+  initialize: any;
 }
 
 /**
@@ -40,20 +40,20 @@ export interface IVentPlugin {
  * @author Sebastian Fitzner
  */
 const VentPlugin: IVentPlugin = {
-	options: {
-		furtherEvents: {}
-	},
-	pluginName: 'Vent',
-	initialize: function (Veams, opts: IVentOptions): IVeamsExtendedByVent {
-		if (opts) {
-			this.options = extend(this.options, opts || {});
-		}
+  options: {
+    furtherEvents: {},
+  },
+  pluginName: 'Vent',
+  initialize: function (Veams, opts: IVentOptions): IVeamsExtendedByVent {
+    if (opts) {
+      this.options = extend(this.options, opts || {});
+    }
 
-		Veams.Vent = EventsHandler;
-		Veams.EVENTS = extend(Veams.EVENTS, this.options.furtherEvents);
+    Veams.Vent = createEventHandling();
+    Veams.EVENTS = extend(Veams.EVENTS, this.options.furtherEvents);
 
-		return Veams;
-	}
+    return Veams;
+  },
 };
 
 export default VentPlugin;

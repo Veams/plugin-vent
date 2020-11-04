@@ -1,32 +1,82 @@
 {
-	"name": "@veams/plugin-vent",
-	"version": "1.0.3",
-	"description": "The Veams Vent Plugin is a global publish and subscribe object. You can use this plugin to communicate between modules independently.",
-	"main": "./lib/index.js",
-	"types": "./lib/index.d.ts",
-	"scripts": {
-		"build": "tsc --project tsconfig.json --outDir lib --declarationDir lib --declaration --module commonjs",
-		"start": "tsc --project tsconfig.json --watch --outDir lib --declarationDir lib --declaration --module commonjs",
-		"prepublish": "npm run build"
-	},
-	"devDependencies": {
-		"typescript": "^2.7.1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/veams/plugin-vent.git"
-	},
-	"keywords": [
-		"veams",
-		"veams-plugin"
-	],
-	"author": "Sebastian Fitzner",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/veams/plugin-vent/issues"
-	},
-	"homepage": "http://veams.org/",
-	"dependencies": {
-		"@veams/helpers": "^1.2.5"
-	}
+  "name": "@veams/plugin-vent",
+  "version": "1.0.3",
+  "description": "The Veams Vent Plugin is a global publish and subscribe object. You can use this plugin to communicate between modules independently.",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "tsc --project tsconfig.json --outDir lib --declarationDir lib --declaration --module commonjs",
+    "start": "tsc --project tsconfig.json --watch --outDir lib --declarationDir lib --declaration --module commonjs",
+    "prepublish": "npm run build",
+    "lint:scripts": "eslint --fix \"src/**/*.ts\"",
+    "prettify:scripts": "prettier --write \"src/**/*.{ts, test.ts}\"",
+    "test": "jest --runInBand --no-cache --config ./jest.config.js",
+    "test:coverage": "cross-env BABEL_ENV=client jest --coverage && jest-coverage-badges",
+    "preversion": "npm test",
+    "version": "npm run build && git add .",
+    "postversion": "git push && git push --tags && npm publish"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run build && lint-staged && npm run test"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "npm run prettify:scripts",
+      "npm run lint:scripts",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.4",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-decorators": "^7.10.5",
+    "@babel/plugin-proposal-do-expressions": "^7.10.4",
+    "@babel/plugin-proposal-export-default-from": "^7.10.4",
+    "@babel/plugin-proposal-export-namespace-from": "^7.10.4",
+    "@babel/plugin-proposal-function-bind": "^7.10.5",
+    "@babel/plugin-proposal-function-sent": "^7.10.4",
+    "@babel/plugin-proposal-json-strings": "^7.10.4",
+    "@babel/plugin-proposal-logical-assignment-operators": "^7.11.0",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
+    "@babel/plugin-proposal-numeric-separator": "^7.10.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.11.0",
+    "@babel/plugin-proposal-pipeline-operator": "^7.10.5",
+    "@babel/plugin-proposal-throw-expressions": "^7.10.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-syntax-import-meta": "^7.10.4",
+    "@babel/preset-env": "^7.11.0",
+    "@types/jest": "^26.0.10",
+    "@typescript-eslint/eslint-plugin": "^4.6.1",
+    "@typescript-eslint/parser": "^4.6.1",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.2.5",
+    "jest": "^26.4.2",
+    "jest-coverage-badges": "^1.1.2",
+    "lint-staged": "^10.2.12",
+    "prettier": "^2.1.0",
+    "ts-jest": "^26.2.0",
+    "typescript": "^4.0.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/veams/plugin-vent.git"
+  },
+  "keywords": [
+    "veams",
+    "veams-plugin"
+  ],
+  "author": "Sebastian Fitzner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/veams/plugin-vent/issues"
+  },
+  "homepage": "http://veams.org/",
+  "dependencies": {
+    "@veams/helpers": "^1.4.1"
+  }
 }
