@@ -1,7 +1,11 @@
+
+
 [//]: # ({{#wrapWith "content-section"}})
 
 [//]: #     ({{#wrapWith "grid-row"}})
 [//]: #         ({{#wrapWith "grid-col" colClasses="is-col-tablet-l-8"}})
+
+# !Deprecated - Use `@veams/vent` for latest version!
 
 # Veams Vent Plugin (`@veams/plugin-vent`)
 
